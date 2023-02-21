@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import Map from 'ol/Map';
     import View from 'ol/View';
     import TileLayer from 'ol/layer/Tile';
@@ -8,10 +7,10 @@
 
     import 'ol/ol.css';
 
-    onMount(() => {
+    const openLayers = (node: HTMLElement) => {
         useGeographic();
 
-        const map = new Map({
+        new Map({
             view: new View({
                 center: [ -0.09, 51.505 ],
                 zoom: 13,
@@ -21,12 +20,17 @@
                     source: new OSM(),
                 }),
             ],
-            target: 'map-openlayers',
+            target: node,
         });
-    });
+
+        return {
+            destroy: () => {
+            },
+        };
+    };
 </script>
 
-<div id="map-openlayers" />
+<div id="map-openlayers" use:openLayers />
 
 <style>
     #map-openlayers {

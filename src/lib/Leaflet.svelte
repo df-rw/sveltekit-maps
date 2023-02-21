@@ -1,11 +1,8 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import L from 'leaflet';
 
-    let map;
-
-    onMount(() => {
-        map = L.map('map-leaflet', {
+    const leaflet = (node: HTMLElement) => {
+        const map = L.map(node, {
             center: [ 51.505, -0.09 ],
             zoom: 13,
         });
@@ -14,7 +11,15 @@
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
-    });
+
+        return {
+            destroy: () => {
+                if (map) {
+                    map.remove();
+                }
+            },
+        };
+    };
 
 </script>
 
@@ -24,10 +29,10 @@
      crossorigin=""/>
 </svelte:head>
 
-<div id="map-leaflet"></div>
+<div class="map-leaflet" use:leaflet></div>
 
 <style>
-    #map-leaflet {
+    .map-leaflet {
         height: 180px;
     }
 </style>

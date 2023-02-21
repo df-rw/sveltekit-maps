@@ -1,23 +1,47 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import maplibregl from 'maplibre-gl';
 
-    onMount(() => {
+    const maplibre = (node: HTMLElement) => {
         const map = new maplibregl.Map({
-            container: 'map-maplibre',
-            // style: 'https://demotiles.maplibre.org/style.json', // stylesheet location
-            style: 'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL',
+            container: node,
+            style: {
+                version: 8,
+                sources: {
+                    osm:{
+                        type: 'raster',
+                        tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                        tileSize: 256,
+                        attribution: '&copy; OpenStreetMap Contributors',
+                        maxzoom: 19 
+                    }
+                },
+                layers: [
+                    {
+                        id: 'osm',
+                        type: 'raster',
+                        source: 'osm'
+                    },
+                ],
+            },
             center: [-0.09, 51.505], // starting position [lng, lat]
             zoom: 12 // starting zoom
         });
-    });
+
+        return {
+            destroy: () => {
+                if (map) {
+                    map.remove();
+                }
+            },
+        }
+    };
 </script>
 
 <svelte:head>
     <link href='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css' rel='stylesheet' />
 </svelte:head>
 
-<div id="map-maplibre" />
+<div id="map-maplibre" use:maplibre />
 
 <style>
     #map-maplibre {
