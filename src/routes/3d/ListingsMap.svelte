@@ -2,14 +2,22 @@
 	import maplibregl from 'maplibre-gl';
 	import { createEventDispatcher } from 'svelte';
 
+    type Listing = { lat: number, lon: number; price: number };
+
 	export let height = '180px';
 	export let centre: [number, number] = [-0.09, 51.505];
     export let zoom = 12;
     export let pitch = 0;
+    export let listings: Listing[];
 
 	const dispatchEvent = createEventDispatcher();
 
-	const maplibre = (node: HTMLElement, p: number) => {
+    const createGeoJson = (listings: Listing[]) => {
+        return {
+        };
+    };
+
+    const maplibre = (node: HTMLElement, listings: Listing[]) => {
 		const map = new maplibregl.Map({
 			container: node,
 			style: {
@@ -33,7 +41,7 @@
 			},
 			center: centre,
 			zoom,
-            pitch: p,
+            pitch,
 		});
 
 		map.addControl(
@@ -49,14 +57,22 @@
 		});
 
         map.on('idle', () => {
-            dispatchEvent('idle', map.getBounds());
+            const bounds = map.getBounds();
+            const centre = map.getCenter();
+            dispatchEvent('idle', { centre, bounds });
+        });
+
+        map.on('load', () => {
+            /*
+            if (map) {
+                map.getSource('listings').setData(createGoeJson(listings));
+            }
+             */
         });
 
 		return {
-            update: (p: number) => {
-                if (map) {
-                    map.setPitch(p);
-                }
+            update: (listings: Listing[]) => {
+                console.log('updated', listings);
             },
 			destroy: () => {
 				if (map) {
@@ -71,4 +87,4 @@
 	<link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
 </svelte:head>
 
-<div id="map-maplibre" use:maplibre={pitch} style="height: {height}" />
+<div id="map-maplibre" use:maplibre={listings} style="height: {height}" />
