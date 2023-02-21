@@ -5,7 +5,7 @@
     let map;
 
     onMount(() => {
-        map = L.map('map', {
+        map = L.map('map-leaflet', {
             center: [ 51.505, -0.09 ],
             zoom: 13,
         });
@@ -24,10 +24,10 @@
      crossorigin=""/>
 </svelte:head>
 
-<div id="map"></div>
+<div id="map-leaflet"></div>
 
 <style>
-    #map {
+    #map-leaflet {
         height: 180px;
     }
 </style>

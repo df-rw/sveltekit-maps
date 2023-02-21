@@ -4,6 +4,12 @@
     import MapMapLibre from '$lib/MapLibre.svelte';
 </script>
 
+
+<p>Leaflet</p>
 <MapLeaflet />
+
+<p>OpenLayers</p>
 <MapOpenLayers />
+
+<p>MapLibre</p>
 <MapMapLibre />
