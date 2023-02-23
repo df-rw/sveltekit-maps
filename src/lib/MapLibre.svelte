@@ -4,8 +4,8 @@
 
 	export let height = '180px';
 	export let centre: [number, number] = [-0.09, 51.505];
-    export let zoom = 12;
-    export let pitch = 0;
+	export let zoom = 12;
+	export let pitch = 0;
 
 	const dispatchEvent = createEventDispatcher();
 
@@ -33,7 +33,7 @@
 			},
 			center: centre,
 			zoom,
-            pitch: p,
+			pitch: p,
 		});
 
 		map.addControl(
@@ -48,16 +48,16 @@
 			dispatchEvent('click', e.lngLat);
 		});
 
-        map.on('idle', () => {
-            dispatchEvent('idle', map.getBounds());
-        });
+		map.on('idle', () => {
+			dispatchEvent('idle', map.getBounds());
+		});
 
 		return {
-            update: (p: number) => {
-                if (map) {
-                    map.setPitch(p);
-                }
-            },
+			update: (p: number) => {
+				if (map) {
+					map.setPitch(p);
+				}
+			},
 			destroy: () => {
 				if (map) {
 					map.remove();

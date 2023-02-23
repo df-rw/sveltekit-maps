@@ -6,4 +6,9 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 	},
+    resolve: {
+        alias: {
+            '@raywhite/data-client': '/node_modules/@raywhite/data-client/lib/index.js',
+        },
+    },
 });
