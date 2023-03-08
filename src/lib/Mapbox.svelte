@@ -6,11 +6,12 @@
 	export let centre: [number, number] = [-0.09, 51.505];
 	export let zoom = 12;
     export let pitch = 0;
+    export let MAPBOX_ACCESS_TOKEN: string;
 
 	const dispatchEvent = createEventDispatcher();
 
     const mapbox = (node: HTMLElement, pitch: number) => {
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZGYtcnciLCJhIjoiY2w4MTY5eGQ2MDBrMDNucGo4Y3JweXZveCJ9.BdVQbt6496EeB-R7zK_Vcw'
+        mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 		const map = new mapboxgl.Map({
 			container: node,
 			style: {
@@ -72,4 +73,4 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
 </svelte:head>
 
-<div id="map-mapbox" use:mapbox={pitch} style="height: {height}"  />
+<div id="map-mapbox" use:mapbox={pitch} style="height: {height}" />
