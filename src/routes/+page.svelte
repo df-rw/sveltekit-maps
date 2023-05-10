@@ -1,9 +1,9 @@
 <script lang="ts">
     import type { PageData } from './$types';
 
-	import MapLeaflet from '$lib/Leaflet.svelte';
-	import MapOpenLayers from '$lib/OpenLayers.svelte';
-	import MapMapLibre from '$lib/MapLibre.svelte';
+    import MapLeaflet from '$lib/Leaflet.svelte';
+    import MapOpenLayers from '$lib/OpenLayers.svelte';
+    import MapMapLibre from '$lib/MapLibre.svelte';
     import Mapbox from '$lib/Mapbox.svelte';
 
     export let data: PageData;
